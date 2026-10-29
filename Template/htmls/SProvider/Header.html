@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Service Provider</title>
+
+<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+<style>
+
+body{
+background:url("{% static 'bg.jpg' %}") center/cover no-repeat fixed;
+font-family:'Russo One',sans-serif;
+margin:0;
+}
+
+/* HEADER */
+
+.header-bg{
+background:linear-gradient(90deg,#1e3c72,#2a5298);
+padding:30px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+}
+
+.header-title{
+color:white;
+font-size:28px;
+margin:0;
+}
+
+/* NAVBAR */
+
+.topnav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+background:#812;
+}
+
+.topnav a{
+color:white;
+padding:12px 16px;
+text-decoration:none;
+font-size:13px;
+margin:3px;
+border-radius:4px;
+transition:0.3s;
+}
+
+.topnav a:hover{
+background:#ddd;
+color:black;
+}
+
+.logout{
+background:#c0392b;
+}
+
+/* MAIN CONTENT */
+
+.mainholder{
+padding:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header-bg">
+
+<h1 class="header-title">
+PhishingGNN: Phishing Email Detection Using DistilBERT Feature Extraction And Graph Attention Networks
+</h1>
+
+</div>
+
+<div class="topnav">
+
+<a href="{% url 'train_model' %}">Train & Test Data Sets</a>
+
+<a href="{% url 'likeschart' 'bar' %}">
+Accuracy Bar Chart
+</a>
+
+<a href="{% url 'charts1' 'line' %}">
+Accuracy Results
+</a>
+
+<a href="{% url 'View_Detected_Email_Phishing_Detection_Status_Type' %}">
+Prediction Status
+</a>
+
+<a href="{% url 'View_Detected_Email_Phishing_Detection_Status_Ratio' %}">
+Detection Ratio
+</a>
+
+<a href="{% url 'Download_Predicted_DataSets' %}">
+Download Data Sets
+</a>
+
+<a href="{% url 'charts' 'line' %}">
+Ratio Results
+</a>
+
+<a href="{% url 'View_Remote_Users' %}">
+Remote Users
+</a>
+
+<a class="logout" href="{% url 'login' %}">
+Logout
+</a>
+
+</div>
+
+<div class="mainholder">
+
+{% block researchblock %}
+{% endblock %}
+
+</div>
+
+</body>
+</html>

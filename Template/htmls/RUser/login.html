@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Login</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+height:100vh;
+}
+
+.main-container{
+display:flex;
+height:100vh;
+}
+
+/* LEFT SIDE */
+
+.left-panel{
+flex:1;
+background:linear-gradient(135deg,#1e3c72,#2a5298);
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+}
+
+.left-panel h1{
+font-weight:600;
+margin-bottom:20px;
+}
+
+.left-panel p{
+font-size:15px;
+max-width:400px;
+}
+
+/* RIGHT SIDE */
+
+.right-panel{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f4f6f9;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+width:380px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.login-box h3{
+text-align:center;
+margin-bottom:25px;
+font-weight:600;
+}
+
+/* INPUTS */
+
+.form-group{
+position:relative;
+}
+
+.form-group i{
+position:absolute;
+left:10px;
+top:12px;
+color:#777;
+}
+
+.form-control{
+padding-left:35px;
+border-radius:25px;
+}
+
+/* BUTTON */
+
+.login-btn{
+width:100%;
+border-radius:25px;
+background:#2a5298;
+color:white;
+font-weight:600;
+transition:0.3s;
+}
+
+.login-btn:hover{
+background:#1e3c72;
+transform:scale(1.03);
+}
+
+/* LINKS */
+
+.extra-links{
+text-align:center;
+margin-top:15px;
+}
+
+.extra-links a{
+margin:5px;
+padding:8px 15px;
+border-radius:20px;
+color:white;
+text-decoration:none;
+font-size:13px;
+}
+
+.sp-btn{
+background:#28a745;
+}
+
+.reg-btn{
+background:#ff5722;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+<!-- LEFT SIDE -->
+<div class="left-panel">
+
+<h1>PhishingGNN</h1>
+
+<p>
+Phishing Email Detection using DistilBERT Feature Extraction and
+Graph Attention Networks (GAT).  
+This system detects phishing emails using advanced Graph Neural Networks.
+</p>
+
+<img src="{% static 'login.jpg' %}" width="220">
+
+</div>
+
+
+<!-- RIGHT SIDE LOGIN -->
+<div class="right-panel">
+
+<div class="login-box">
+
+<h3>Login Account</h3>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="form-group">
+<i class="fa fa-user"></i>
+<input type="text" name="username" class="form-control" placeholder="Username" required>
+</div>
+
+<div class="form-group">
+<i class="fa fa-lock"></i>
+<input type="password" name="password" class="form-control" placeholder="Password" required>
+</div>
+
+<button type="submit" name="submit1" class="btn login-btn">
+Login
+</button>
+
+</form>
+
+<div class="extra-links">
+
+<a href="{% url 'serviceproviderlogin' %}" class="sp-btn">
+Service Provider
+</a>
+
+<a href="{% url 'Register1' %}" class="reg-btn">
+Register
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

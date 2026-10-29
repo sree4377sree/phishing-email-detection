@@ -1,0 +1,101 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600" rel="stylesheet">
+
+<style>
+
+body{
+background-color:#000;
+font-family:'Poppins',sans-serif;
+}
+
+.container-fluid{
+padding:40px;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:8px;
+box-shadow:0 4px 15px rgba(0,0,0,0.3);
+}
+
+.title{
+color:#ff0000;
+font-weight:600;
+margin-bottom:20px;
+}
+
+/* table design */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#ff0000;
+color:#fff;
+padding:10px;
+font-size:14px;
+}
+
+td{
+padding:10px;
+border-bottom:1px solid #ddd;
+color:#333;
+font-size:13px;
+}
+
+tr:hover{
+background:#f5f5f5;
+}
+
+</style>
+
+
+<div class="container-fluid">
+<div class="container">
+
+<h3 class="title">VIEW ALL REMOTE USERS</h3>
+
+<div class="viewclients">
+
+<table>
+
+<tr>
+<th>USER NAME</th>
+<th>EMAIL</th>
+<th>ADDRESS</th>
+<th>GENDER</th>
+<th>MOBILE</th>
+<th>COUNTRY</th>
+<th>STATE</th>
+<th>CITY</th>
+</tr>
+
+{% for o in objects %}
+
+<tr>
+<td>{{o.username}}</td>
+<td>{{o.email}}</td>
+<td>{{o.address}}</td>
+<td>{{o.gender}}</td>
+<td>{{o.phoneno}}</td>
+<td>{{o.country}}</td>
+<td>{{o.state}}</td>
+<td>{{o.city}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<title>Service Provider Login</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,600" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins', sans-serif;
+background:url("{% static 'bg.jpg' %}") no-repeat center center fixed;
+background-size:cover;
+}
+
+/* overlay effect */
+.overlay{
+background:rgba(0,0,0,0.6);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* login box */
+
+.login-box{
+background:#fff;
+padding:40px;
+border-radius:10px;
+width:380px;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+.login-box img{
+width:120px;
+margin-bottom:10px;
+}
+
+.title{
+font-weight:600;
+color:#e60000;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:13px;
+color:#666;
+margin-bottom:20px;
+}
+
+/* input fields */
+
+.form-control{
+border-radius:25px;
+margin-bottom:15px;
+}
+
+/* buttons */
+
+.btn-login{
+background:#e60000;
+color:#fff;
+border-radius:25px;
+width:100%;
+font-weight:600;
+}
+
+.btn-login:hover{
+background:#cc0000;
+}
+
+.btn-user{
+margin-top:15px;
+background:#007bff;
+color:#fff;
+border-radius:20px;
+padding:6px 15px;
+}
+
+.btn-user a{
+color:white;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="login-box">
+
+<img src="{% static 'login.jpg' %}" alt="Login">
+
+<h4 class="title">Service Provider Login</h4>
+
+<p class="subtitle">
+Phishing Email Detection using DistilBERT and Graph Attention Networks
+</p>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="username" class="form-control" placeholder="User Name" required>
+
+<input type="password" name="password" class="form-control" placeholder="Password" required>
+
+<input type="submit" name="submit1" class="btn btn-login" value="Login">
+
+</form>
+
+<button class="btn btn-user">
+<a href="{% url 'login' %}">User Login</a>
+</button>
+
+</div>
+
+</div>
+
+</body>
+</html>

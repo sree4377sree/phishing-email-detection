@@ -1,0 +1,94 @@
+{% extends 'RUser/Header.html' %}
+{% block userblock %}
+
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
+<style>
+
+.profile-container{
+width:600px;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+.profile-title{
+text-align:center;
+font-family:'Righteous', cursive;
+color:#e74c3c;
+font-size:26px;
+margin-bottom:20px;
+}
+
+.profile-row{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid #eee;
+}
+
+.profile-label{
+font-weight:bold;
+color:#e74c3c;
+}
+
+.profile-value{
+color:#333;
+font-size:16px;
+}
+
+</style>
+
+
+<div class="profile-container">
+
+<div class="profile-title">
+Your Profile Details
+</div>
+
+<div class="profile-row">
+<div class="profile-label">User Name</div>
+<div class="profile-value">{{object.username}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">Email</div>
+<div class="profile-value">{{object.email}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">Address</div>
+<div class="profile-value">{{object.address}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">Gender</div>
+<div class="profile-value">{{object.gender}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">Mobile No</div>
+<div class="profile-value">{{object.phoneno}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">Country</div>
+<div class="profile-value">{{object.country}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">State</div>
+<div class="profile-value">{{object.state}}</div>
+</div>
+
+<div class="profile-row">
+<div class="profile-label">City</div>
+<div class="profile-value">{{object.city}}</div>
+</div>
+
+</div>
+
+{% endblock %}

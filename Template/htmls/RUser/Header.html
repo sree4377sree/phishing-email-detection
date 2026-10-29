@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Remote User</title>
+
+<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+<style>
+
+body{
+background:url("{% static 'bg.jpg' %}") center/cover no-repeat fixed;
+font-family:'Russo One',sans-serif;
+margin:0;
+}
+
+/* HEADER */
+
+.header{
+text-align:center;
+padding:30px;
+background:blue;
+}
+
+.header h1{
+color:#ffffff;
+font-size:28px;
+margin:0;
+}
+
+/* NAVBAR */
+
+.topnav{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+background:#812;
+}
+
+.topnav a{
+color:white;
+text-decoration:none;
+padding:14px 18px;
+font-size:15px;
+margin:3px;
+border-radius:5px;
+transition:0.3s;
+}
+
+.topnav a:hover{
+background:#ddd;
+color:black;
+}
+
+.logout{
+background:#c0392b;
+}
+
+/* MAIN CONTENT */
+
+.mainholder{
+padding:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>
+PhishingGNN:Phishing Email Detection Using DistilBERT Feature Extraction And Graph Attention Networks
+</h1>
+</div>
+
+<div class="topnav">
+
+<a href="{% url 'Detect_Email_Phishing_Detection_Status' %}">
+Predict Email Phishing Detection Status
+</a>
+
+<a href="{% url 'ViewYourProfile' %}">
+View Your Profile
+</a>
+
+<a class="logout" href="{% url 'login' %}">
+Logout
+</a>
+
+</div>
+
+<div class="mainholder">
+{% block userblock %}
+{% endblock %}
+</div>
+
+</body>
+</html>
