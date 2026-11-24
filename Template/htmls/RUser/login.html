@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login — PhishingGNN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#f8fafc;--surface:#ffffff;--surface-2:#f1f5f9;--border:#e2e8f0;
+  --text:#334155;--muted:#64748b;--heading:#0f172a;--primary:#4f46e5;
+  --primary-hover:#6366f1;--danger:#ef4444;--shadow:0 10px 30px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 50%,#f8fafc 100%);
+  color:var(--text);min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  -webkit-font-smoothing:antialiased;
+}
+.card{
+  width:100%;max-width:420px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:36px 32px;box-shadow:var(--shadow);
+}
+.brand{
+  display:flex;align-items:center;gap:12px;margin-bottom:24px;
+}
+.brand-mark{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-hover));
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;
+  box-shadow:0 6px 16px rgba(22,139,210,.35);
+}
+.brand h1{font-size:18px;color:var(--heading);font-weight:700;margin:0;}
+.brand p{font-size:11px;color:var(--muted);margin:2px 0 0;text-transform:uppercase;letter-spacing:.06em;}
+h2{color:var(--heading);font-size:22px;font-weight:700;margin:0 0 6px;}
+.sub{color:var(--muted);font-size:13px;margin-bottom:24px;}
+.field{position:relative;margin-bottom:14px;}
+.field i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;}
+.field input{
+  width:100%;padding:11px 12px 11px 38px;
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2);color:var(--heading);font-size:14px;
+  transition:border-color .15s;
+}
+.field input:focus{outline:none;border-color:var(--primary);}
+.btn{
+  width:100%;padding:11px;border:none;border-radius:10px;
+  background:var(--primary);color:#fff;font-weight:600;font-size:14px;
+  cursor:pointer;transition:all .15s;margin-top:6px;
+}
+.btn:hover{background:var(--primary-hover);transform:translateY(-1px);}
+.links{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+.link{
+  flex:1;text-align:center;padding:9px 10px;border-radius:8px;
+  font-size:12px;font-weight:600;text-decoration:none;
+  border:1px solid var(--border);color:var(--text);
+  background:var(--surface-2);transition:all .15s;
+}
+.link:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.link.sp{background:rgba(22,163,74,.15);color:#86efac;border-color:rgba(22,163,74,.3);}
+.link.sp:hover{background:var(--success);color:#fff;}
+.link.reg{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.3);}
+.link.reg:hover{background:#f97316;color:#fff;}
+.hint{margin-top:16px;padding:10px 12px;border-radius:8px;background:rgba(56,169,232,.1);border:1px solid rgba(56,169,232,.25);font-size:11px;color:var(--muted);}
+.hint b{color:var(--heading);}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">
+    <div class="brand-mark">P</div>
+    <div>
+      <h1>PhishingGNN</h1>
+      <p>Phishing Email Detection</p>
+    </div>
+  </div>
+
+  <h2>Welcome back</h2>
+  <p class="sub">Sign in to your account to continue</p>
+
+  {% if error %}
+  <div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);color:#fca5a5;padding:10px 12px;border-radius:8px;font-size:13px;margin-bottom:16px;">
+    <i class="fa fa-triangle-exclamation"></i> {{ error }}
+  </div>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="field">
+      <i class="fa fa-user"></i>
+      <input type="text" name="username" placeholder="Username" required>
+    </div>
+    <div class="field">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit" class="btn"><i class="fa fa-arrow-right-to-bracket"></i> Login</button>
+  </form>
+
+  <div class="links">
+    <a href="{% url 'serviceproviderlogin' %}" class="link sp"><i class="fa fa-user-shield"></i> Service Provider</a>
+    <a href="{% url 'Register1' %}" class="link reg"><i class="fa fa-user-plus"></i> Register</a>
+  </div>
+</div>
+
+</body>
+</html>

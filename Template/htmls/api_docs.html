@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REST API Documentation &amp; Live Console — PhishShield AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --bg:#0b1220;--surface:#15203a;--surface-2:#1c2a4a;--border:#2a3a5e;
+  --text:#cbd5e1;--muted:#8aa3bc;--heading:#e5f1fa;--primary:#38a9e8;
+  --primary-hover:#67c5f5;--danger:#ef4444;--success:#10b981;--warning:#f59e0b;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  background:radial-gradient(circle at 50% 0%,#172554 0%,#0b1220 55%,#05080f 100%);
+  color:var(--text);min-height:100vh;line-height:1.6;
+}
+.navbar{
+  border-bottom:1px solid var(--border);background:rgba(11,18,32,.9);
+  backdrop-filter:blur(14px);position:sticky;top:0;z-index:100;padding:14px 24px;
+}
+.nav-wrap{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;}
+.brand-mark{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),#60a5fa);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;
+}
+.nav-links{display:flex;gap:10px;align-items:center;}
+.nav-btn{
+  padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;
+  text-decoration:none;border:1px solid var(--border);color:var(--text);
+  background:var(--surface-2);transition:all .15s;
+}
+.nav-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.nav-btn.react{background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.3);}
+.nav-btn.react:hover{background:#38bdf8;color:#0b1220;}
+
+.container{max-width:1200px;margin:0 auto;padding:32px 20px;}
+.header{margin-bottom:30px;}
+.header h1{font-size:26px;font-weight:800;color:var(--heading);margin-bottom:6px;}
+.header p{font-size:14px;color:var(--muted);}
+
+.grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;}
+@media(max-width:960px){.grid{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:24px;box-shadow:var(--shadow);
+}
+.card h2{font-size:18px;font-weight:700;color:var(--heading);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+
+.method{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.method-post{background:rgba(56,189,248,.2);color:#38bdf8;border:1px solid rgba(56,189,248,.4);}
+.method-get{background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.4);}
+
+.endpoint-row{
+  padding:14px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:10px;margin-bottom:12px;
+}
+.endpoint-title{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--heading);}
+.endpoint-desc{font-size:12px;color:var(--muted);margin-top:6px;}
+
+.tester-field{margin-bottom:12px;}
+.tester-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.tester-field input,.tester-field textarea{
+  width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+  background:var(--surface-2);color:var(--heading);font-family:inherit;font-size:13px;
+}
+.tester-field textarea{min-height:90px;font-family:'JetBrains Mono',monospace;font-size:12px;resize:vertical;}
+.btn-send{
+  width:100%;padding:11px;border-radius:8px;border:none;background:var(--primary);
+  color:#fff;font-weight:700;font-size:14px;cursor:pointer;transition:all .15s;
+}
+.btn-send:hover{background:var(--primary-hover);}
+.sample-btns{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.btn-sample{
+  padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border);
+  background:var(--surface-2);color:var(--text);cursor:pointer;
+}
+.btn-sample:hover{border-color:var(--primary);color:var(--heading);}
+
+pre{
+  background:#05080f;border:1px solid var(--border);border-radius:8px;
+  padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:#a5f3fc;overflow-x:auto;max-height:360px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-wrap">
+    <a href="/" class="brand">
+      <div class="brand-mark"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <div style="font-weight:800;font-size:16px;">PhishShield AI</div>
+        <div style="font-size:10px;color:var(--muted);letter-spacing:.04em;">REST API Engine v1</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="/react/" class="nav-btn react"><i class="fa-brands fa-react"></i> Open React Dashboard</a>
+      <a href="{% url 'Detect_Email_Phishing_Detection_Status' %}" class="nav-btn"><i class="fa-solid fa-envelope"></i> Predict Portal</a>
+      <a href="{% url 'ViewYourProfile' %}" class="nav-btn"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="{% url 'serviceproviderlogin' %}" class="nav-btn"><i class="fa-solid fa-user-shield"></i> Admin</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="header">
+    <h1><i class="fa-solid fa-code"></i> REST API Documentation &amp; Live Test Console</h1>
+    <p>Interact with the AI Threat Intelligence Engine via standard JSON REST endpoints.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Left: Live API Request Tester -->
+    <div class="card">
+      <h2><i class="fa-solid fa-terminal"></i> Live Endpoint Tester: <code>POST /api/v1/predict/</code></h2>
+
+      <div class="sample-btns">
+        <button type="button" class="btn-sample" onclick="loadSample('phish1')">🚨 PayPal Phish</button>
+        <button type="button" class="btn-sample" onclick="loadSample('phish2')">🚨 Wire Transfer</button>
+        <button type="button" class="btn-sample" onclick="loadSample('safe')">✅ Safe Team Email</button>
+      </div>
+
+      <div class="tester-field">
+        <label>Sender</label>
+        <input type="text" id="testSender" value="security-service@paypa1-update.xyz">
+      </div>
+      <div class="tester-field">
+        <label>Subject</label>
+        <input type="text" id="testSubject" value="Urgent: Account Suspended within 24 Hours">
+      </div>
+      <div class="tester-field">
+        <label>Email Body (JSON Payload)</label>
+        <textarea id="testBody">Your PayPal account has been suspended due to unauthorized login attempts. Click http://192.168.1.100/login to verify your password immediately or legal penalty will follow.</textarea>
+      </div>
+
+      <button type="button" class="btn-send" onclick="sendTestRequest()" id="sendBtn">
+        <i class="fa-solid fa-paper-plane"></i> Send Request (POST /api/v1/predict/)
+      </button>
+
+      <div style="margin-top:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">Live Server Response:</div>
+        <pre id="responseBox">// Click "Send Request" above to test the live API...</pre>
+      </div>
+    </div>
+
+    <!-- Right: Endpoints Directory -->
+    <div class="card">
+      <h2><i class="fa-solid fa-list-check"></i> Available REST Endpoints</h2>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-post">POST</span> /api/v1/predict/
+        </div>
+        <div class="endpoint-desc">
+          Classifies email text and headers using DistilBERT &amp; Calibrated Ensemble. Returns prediction, confidence, risk score, and XAI token attributions in &lt; 25ms.
+        </div>
+      </div>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-post">POST</span> /api/v1/batch-predict/
+        </div>
+        <div class="endpoint-desc">
+          Accepts an array of emails for high-volume automated batch scanning.
+        </div>
+      </div>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-get">GET</span> /api/v1/metrics/
+        </div>
+        <div class="endpoint-desc">
+          Returns evaluation benchmarks (Accuracy: 96.44%, F1: 96.64%, ROC-AUC: 99.82%), confusion matrix, and multi-model comparative statistics.
+        </div>
+      </div>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-get">GET</span> /api/v1/history/
+        </div>
+        <div class="endpoint-desc">
+          Queries historical scan audit log with optional search filter <code>?q=keyword&amp;limit=50</code>.
+        </div>
+      </div>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-get">GET</span> /api/v1/stats/
+        </div>
+        <div class="endpoint-desc">
+          Returns real-time scan statistics: total emails scanned, phishing count, safe count, and threat ratio.
+        </div>
+      </div>
+
+      <div class="endpoint-row">
+        <div class="endpoint-title">
+          <span class="method method-get">GET</span> /api/v1/health/
+        </div>
+        <div class="endpoint-desc">
+          System health check confirming database and neural model readiness.
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding:12px;background:var(--surface-2);border-radius:8px;font-size:12px;color:var(--muted);">
+        <strong style="color:var(--heading);">Python Client Example:</strong>
+        <pre style="margin-top:6px;max-height:140px;">import requests
+res = requests.post("http://127.0.0.1:8000/api/v1/predict/", json={
+    "body": "Urgent: Verify your bank password now."
+})
+print(res.json()["data"]["prediction"])</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SAMPLES = {
+  phish1: {
+    sender: "security-service@paypa1-update.xyz",
+    subject: "Urgent: Account Suspended within 24 Hours",
+    body: "Your PayPal account has been suspended due to unauthorized login attempts. Click http://192.168.1.100/login to verify your password immediately or legal penalty will follow."
+  },
+  phish2: {
+    sender: "ceo-office@gmail.com",
+    subject: "CONFIDENTIAL: Urgent Wire Transfer Required",
+    body: "I am in a confidential board meeting. Please process an immediate wire transfer of $45,000 to the attached bank account today. Do not call my phone."
+  },
+  safe: {
+    sender: "sarah.miller@techcorp.com",
+    subject: "Sprint Retrospective & Lunch Tomorrow",
+    body: "Hey team, please review the sprint burndown chart before our 2 PM retrospective tomorrow. Also let me know if anyone has dietary preferences for team lunch!"
+  }
+};
+
+function loadSample(key) {
+  const s = SAMPLES[key];
+  if (!s) return;
+  document.getElementById("testSender").value = s.sender;
+  document.getElementById("testSubject").value = s.subject;
+  document.getElementById("testBody").value = s.body;
+}
+
+async function sendTestRequest() {
+  const btn = document.getElementById("sendBtn");
+  const box = document.getElementById("responseBox");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+  box.textContent = "Sending request to /api/v1/predict/ ...";
+
+  try {
+    const payload = {
+      sender: document.getElementById("testSender").value,
+      subject: document.getElementById("testSubject").value,
+      body: document.getElementById("testBody").value
+    };
+
+    const startTime = performance.now();
+    const res = await fetch("/api/v1/predict/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const elapsed = Math.round(performance.now() - startTime);
+    const data = await res.json();
+    box.textContent = `// HTTP ${res.status} OK (Roundtrip: ${elapsed}ms)\n` + JSON.stringify(data, null, 2);
+  } catch (err) {
+    box.textContent = `// Error connecting to API: ${err.message}`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Request (POST /api/v1/predict/)';
+  }
+}
+</script>
+
+</body>
+</html>

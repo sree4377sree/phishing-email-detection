@@ -1,0 +1,31 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.page-title{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);max-width:640px;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--surface-2);color:var(--heading);padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;border-bottom:1px solid var(--border);}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);font-size:14px;}
+tr:hover td{background:rgba(56,169,232,.05);}
+.ratio{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(249,115,22,.15);color:#fdba74;border:1px solid rgba(249,115,22,.3);}
+</style>
+
+<div class="page-title"><i class="fa-solid fa-chart-pie"></i> Detection Ratio</div>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>Detection Type</th><th>Ratio (%)</th></tr></thead>
+    <tbody>
+      {% for object in objs %}
+      <tr>
+        <td style="color:var(--heading);font-weight:600;">{{ object.names }}</td>
+        <td><span class="ratio">{{ object.ratio }}</span></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="2" style="text-align:center;color:var(--muted);padding:30px;">No ratio data yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

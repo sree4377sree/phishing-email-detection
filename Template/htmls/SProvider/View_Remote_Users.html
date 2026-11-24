@@ -1,0 +1,37 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.page-title{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--surface-2);color:var(--heading);padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;border-bottom:1px solid var(--border);}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);font-size:13px;}
+tr:hover td{background:rgba(56,169,232,.05);}
+.empty{color:var(--muted);text-align:center;padding:30px;}
+</style>
+
+<div class="page-title"><i class="fa-solid fa-users"></i> Remote Users</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th><th>Email</th><th>Address</th><th>Gender</th>
+        <th>Mobile</th><th>Country</th><th>State</th><th>City</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for o in objects %}
+      <tr>
+        <td>{{ o.username }}</td><td>{{ o.email }}</td><td>{{ o.address }}</td>
+        <td>{{ o.gender }}</td><td>{{ o.phoneno }}</td><td>{{ o.country }}</td>
+        <td>{{ o.state }}</td><td>{{ o.city }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="8" class="empty">No remote users registered yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

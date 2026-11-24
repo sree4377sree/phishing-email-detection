@@ -1,0 +1,61 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.chart-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start;}
+@media(max-width:760px){.chart-layout{grid-template-columns:1fr;}}
+.sidebar{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.sidebar h3{color:var(--heading);font-size:14px;font-weight:600;margin:0 0 10px;}
+.sidebar a{display:block;color:var(--text);padding:9px 12px;margin:4px 0;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;border:1px solid transparent;transition:all .15s;}
+.sidebar a:hover{background:var(--surface-2);color:var(--heading);border-color:var(--border);}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);}
+#chartContainer{width:100%;height:420px;background:#1e293b;border-radius:10px;padding:8px;}
+</style>
+
+<div class="chart-layout">
+  <aside class="sidebar">
+    <h3>Charts</h3>
+    <a href="{% url 'likeschart' 'bar' %}"><i class="fa-solid fa-chart-column"></i> Bar Chart</a>
+    <a href="{% url 'likeschart' 'pie' %}"><i class="fa-solid fa-chart-pie"></i> Pie Chart</a>
+  </aside>
+  <section class="chart-card">
+    {% if form %}
+    <div id="chartContainer"></div>
+    {% else %}
+    <div style="text-align:center;padding:60px 20px;color:var(--muted);">
+      <i class="fa-solid fa-chart-pie" style="font-size:42px;margin-bottom:12px;opacity:.5;"></i>
+      <p style="margin:0;font-size:14px;">No accuracy data yet. Run <a href="{% url 'train_model' %}" style="color:var(--primary);">Train &amp; Test</a> first.</p>
+    </div>
+    {% endif %}
+  </section>
+</div>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+window.onload = function () {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    backgroundColor: "#1e293b",
+    theme: "dark2",
+    title: { text: "Model Accuracy", fontColor: "#e5f1fa" },
+    axisX: { labelFontColor: "#cbd5e1", gridColor: "rgba(255,255,255,.08)" },
+    axisY: { labelFontColor: "#cbd5e1", gridColor: "rgba(255,255,255,.08)" },
+    data: [{
+      {% if like_chart == "rangeSplineArea" %}type: "rangeSplineArea",
+      {% elif like_chart == "pie" %}type: "pie",
+      {% elif like_chart == "spline" %}type: "spline",
+      {% elif like_chart == "bar" %}type: "bar",
+      {% endif %}
+      startAngle: 240,
+      yValueFormatString: "##0.00\"%\"",
+      indexLabel: "{label} {y}",
+      dataPoints: [
+        {% for o in form %}{ y: {{o.dcount}}, label: "{{o.names}}" },{% endfor %}
+      ]
+    }]
+  });
+  chart.render();
+};
+</script>
+
+{% endblock %}

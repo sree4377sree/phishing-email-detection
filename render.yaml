@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: phishing-email-detection-main
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn phishinggnn.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com,localhost"
+      - key: SECRET_KEY
+        generateValue: true

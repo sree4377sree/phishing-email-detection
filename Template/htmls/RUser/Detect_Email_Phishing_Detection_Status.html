@@ -1,0 +1,107 @@
+{% extends 'RUser/Header.html' %}
+{% block userblock %}
+
+<style>
+.predict-card{
+  max-width:720px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:28px 30px;box-shadow:var(--shadow);
+}
+.predict-card h2{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 4px;display:flex;align-items:center;gap:10px;}
+.predict-card .sub{color:var(--muted);font-size:13px;margin-bottom:22px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em;}
+.field input,.field textarea{
+  width:100%;padding:10px 12px;border-radius:8px;
+  border:1px solid var(--border);background:var(--surface-2);
+  color:var(--heading);font-family:inherit;font-size:14px;
+  transition:border-color .15s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--primary);}
+.field textarea{min-height:110px;resize:vertical;}
+.submit-wrap{text-align:center;margin-top:8px;}
+.btn-predict{
+  padding:11px 28px;border:none;border-radius:10px;
+  background:var(--primary);color:#fff;font-weight:600;font-size:14px;
+  cursor:pointer;transition:all .15s;
+}
+.btn-predict:hover{background:var(--primary-hover);transform:translateY(-1px);}
+.result-box{
+  margin-top:24px;padding:16px;text-align:center;
+  font-size:18px;font-weight:700;border-radius:10px;
+  background:rgba(56,169,232,.12);border:1px solid rgba(56,169,232,.3);
+  color:var(--heading);
+}
+.result-box.phishing{background:rgba(229,72,77,.12);border-color:rgba(229,72,77,.3);color:#fca5a5;}
+.result-box.safe{background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.3);color:#86efac;}
+</style>
+
+<div class="predict-card">
+  <h2><i class="fa-solid fa-shield-halved"></i> Predict Email Phishing Status</h2>
+  <p class="sub">Enter email details below to classify it as Phishing or Non-Phishing.</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="field">
+      <label>Sender</label>
+      <input type="text" name="sender" placeholder="sender@example.com" required>
+    </div>
+    <div class="field">
+      <label>Receiver</label>
+      <input type="text" name="receiver" placeholder="receiver@example.com" required>
+    </div>
+    <div class="field">
+      <label>Email Date</label>
+      <input type="text" name="edate" placeholder="2026-01-01" required>
+    </div>
+    <div class="field">
+      <label>Subject</label>
+      <input type="text" name="subject" placeholder="Email subject" required>
+    </div>
+    <div class="field">
+      <label>Email Body</label>
+      <textarea name="body" placeholder="Paste the email body here..." required></textarea>
+    </div>
+    <div class="submit-wrap">
+      <button type="submit" class="btn-predict"><i class="fa-solid fa-magnifying-glass"></i> Predict</button>
+    </div>
+  </form>
+
+  {% if objs %}
+  <div class="result-box {% if 'Phishing' in objs and 'Non' not in objs %}phishing{% else %}safe{% endif %}">
+    <div style="font-size:22px;margin-bottom:8px;">
+      {% if 'Phishing' in objs and 'Non' not in objs %}
+        <i class="fa-solid fa-triangle-exclamation"></i> Threat Detected: {{ objs }}
+      {% else %}
+        <i class="fa-solid fa-circle-check"></i> Clean: {{ objs }}
+      {% endif %}
+    </div>
+
+    {% if result %}
+    <div style="font-size:13px;font-weight:500;display:flex;justify-content:center;gap:18px;margin-top:10px;flex-wrap:wrap;">
+      <span><strong>Confidence:</strong> {{ result.confidence }}%</span>
+      <span><strong>Risk Score:</strong> {{ result.risk_score }}/100</span>
+      <span><strong>Threat Level:</strong> <span style="text-transform:uppercase;font-weight:700;">{{ result.risk_level }}</span></span>
+      <span><strong>Latency:</strong> {{ result.latency_ms }} ms</span>
+    </div>
+
+    {% if result.risk_factors %}
+    <div style="margin-top:16px;text-align:left;background:var(--surface-2);border-radius:8px;padding:12px 16px;font-size:12px;font-weight:normal;">
+      <div style="font-weight:700;margin-bottom:8px;color:var(--heading);">Risk Factors &amp; Explanations:</div>
+      <ul style="margin:0;padding-left:18px;color:var(--text);">
+        {% for factor in result.risk_factors %}
+        <li style="margin-bottom:6px;">
+          <strong style="color:{% if factor.severity == 'CRITICAL' %}#f87171{% elif factor.severity == 'HIGH' %}#fb923c{% elif factor.severity == 'MEDIUM' %}#facc15{% else %}#4ade80{% endif %};">[{{ factor.severity }}] {{ factor.type }}:</strong>
+          {{ factor.message }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

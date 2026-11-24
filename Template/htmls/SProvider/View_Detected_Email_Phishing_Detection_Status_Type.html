@@ -1,0 +1,44 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.page-title{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--surface-2);color:var(--heading);padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;border-bottom:1px solid var(--border);}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);font-size:13px;vertical-align:top;}
+tr:hover td{background:rgba(56,169,232,.05);}
+.prediction{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;}
+.prediction.phishing{background:rgba(229,72,77,.15);color:#fca5a5;border:1px solid rgba(229,72,77,.3);}
+.prediction.safe{background:rgba(22,163,74,.15);color:#86efac;border:1px solid rgba(22,163,74,.3);}
+.body-cell{max-width:260px;word-break:break-word;color:var(--muted);font-size:12px;}
+</style>
+
+<div class="page-title"><i class="fa-solid fa-list-check"></i> Email Phishing Detection Status</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Sender</th><th>Receiver</th><th>Date</th><th>Subject</th><th>Body</th><th>Prediction</th></tr>
+    </thead>
+    <tbody>
+      {% for object in list_objects %}
+      <tr>
+        <td>{{ object.sender }}</td>
+        <td>{{ object.receiver }}</td>
+        <td>{{ object.edate }}</td>
+        <td>{{ object.subject }}</td>
+        <td class="body-cell">{{ object.body }}</td>
+        <td>
+          <span class="prediction {% if 'Phishing' in object.Prediction and 'Non' not in object.Prediction %}phishing{% else %}safe{% endif %}">
+            {{ object.Prediction }}
+          </span>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:30px;">No predictions yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

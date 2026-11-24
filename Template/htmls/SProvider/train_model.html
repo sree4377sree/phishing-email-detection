@@ -1,0 +1,35 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.page-title{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);max-width:720px;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--surface-2);color:var(--heading);padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;border-bottom:1px solid var(--border);}
+td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text);font-size:13px;}
+tr:hover td{background:rgba(56,169,232,.05);}
+td.acc{color:var(--primary);font-weight:700;font-family:monospace;}
+.note{color:var(--muted);font-size:12px;margin-top:14px;}
+</style>
+
+<div class="page-title"><i class="fa-solid fa-brain"></i> Trained &amp; Tested Model Accuracy</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Model</th><th>Accuracy (%)</th></tr>
+    </thead>
+    <tbody>
+      {% for object in objs %}
+      <tr>
+        <td>{{ object.names }}</td>
+        <td class="acc">{{ object.ratio }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="2" style="text-align:center;color:var(--muted);padding:30px;">No results yet. Run training first.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="note">Training runs the DistilBERT Transformer feature extraction and Calibrated Multi-Tier Ensemble (Random Forest, Gradient Boosting, Logistic Regression, SGD, LinearSVC) on Datasets.csv and saves serialized model artifacts for sub-50ms inference.</p>
+</div>
+
+{% endblock %}

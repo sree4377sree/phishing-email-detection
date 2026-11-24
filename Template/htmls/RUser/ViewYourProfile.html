@@ -1,0 +1,39 @@
+{% extends 'RUser/Header.html' %}
+{% block userblock %}
+
+<style>
+.profile-card{
+  max-width:640px;margin:0 auto;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:28px 30px;box-shadow:var(--shadow);
+}
+.profile-card h2{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+.profile-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.profile-row:last-child{border-bottom:none;}
+.profile-label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.profile-value{color:var(--heading);font-size:14px;font-weight:500;}
+.avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--primary-hover));
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px;
+  margin-bottom:16px;box-shadow:0 6px 16px rgba(22,139,210,.35);
+}
+</style>
+
+<div class="profile-card">
+  <div class="avatar">{{ object.username|slice:":1"|upper }}</div>
+  <h2><i class="fa-solid fa-user"></i> Your Profile</h2>
+  <div class="profile-row"><span class="profile-label">Username</span><span class="profile-value">{{ object.username }}</span></div>
+  <div class="profile-row"><span class="profile-label">Email</span><span class="profile-value">{{ object.email }}</span></div>
+  <div class="profile-row"><span class="profile-label">Address</span><span class="profile-value">{{ object.address }}</span></div>
+  <div class="profile-row"><span class="profile-label">Gender</span><span class="profile-value">{{ object.gender }}</span></div>
+  <div class="profile-row"><span class="profile-label">Mobile</span><span class="profile-value">{{ object.phoneno }}</span></div>
+  <div class="profile-row"><span class="profile-label">Country</span><span class="profile-value">{{ object.country }}</span></div>
+  <div class="profile-row"><span class="profile-label">State</span><span class="profile-value">{{ object.state }}</span></div>
+  <div class="profile-row"><span class="profile-label">City</span><span class="profile-value">{{ object.city }}</span></div>
+</div>
+
+{% endblock %}

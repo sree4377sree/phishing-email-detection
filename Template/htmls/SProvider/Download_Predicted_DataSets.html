@@ -1,0 +1,20 @@
+{% extends 'SProvider/Header.html' %}
+{% block researchblock %}
+
+<style>
+.page-title{color:var(--heading);font-size:20px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:32px 28px;box-shadow:var(--shadow);max-width:640px;text-align:center;}
+.card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 20px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;border:none;background:var(--primary);color:#fff;cursor:pointer;text-decoration:none;transition:all .15s;}
+.btn:hover{background:var(--primary-hover);transform:translateY(-1px);}
+.icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-hover));display:grid;place-items:center;margin:0 auto 16px;color:#fff;font-size:28px;box-shadow:0 6px 16px rgba(22,139,210,.35);}
+</style>
+
+<div class="page-title"><i class="fa-solid fa-download"></i> Download Predicted Data Sets</div>
+<div class="card">
+  <div class="icon"><i class="fa-solid fa-file-excel"></i></div>
+  <p>Export all predicted phishing email records to an Excel file (.xls). The file includes sender, receiver, date, subject, body, and prediction for each record.</p>
+  <a href="{% url 'Download_Predicted_DataSets' %}" class="btn"><i class="fa-solid fa-download"></i> Download Predicted DataSets</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{
+  "trained_samples": 896,
+  "test_samples": 225,
+  "total_dataset_size": 1121,
+  "primary_model": "DistilBERT + Calibrated Multi-Tier Ensemble",
+  "accuracy": 96.44,
+  "precision": 96.64,
+  "recall": 96.64,
+  "f1_score": 96.64,
+  "roc_auc": 99.82,
+  "confusion_matrix": {
+    "true_negatives": 102,
+    "false_positives": 4,
+    "false_negatives": 4,
+    "true_positives": 115
+  },
+  "model_comparisons": [
+    {
+      "model_name": "DistilBERT + Calibrated Ensemble (Ours)",
+      "accuracy": 96.44,
+      "precision": 96.64,
+      "recall": 96.64,
+      "f1_score": 96.64
+    },
+    {
+      "model_name": "Random Forest Classifier",
+      "accuracy": 95.56,
+      "precision": 95.8,
+      "recall": 95.8,
+      "f1_score": 95.8
+    },
+    {
+      "model_name": "Gradient Boosting Classifier",
+      "accuracy": 95.11,
+      "precision": 95.0,
+      "recall": 95.8,
+      "f1_score": 95.4
+    },
+    {
+      "model_name": "Logistic Regression",
+      "accuracy": 94.67,
+      "precision": 94.96,
+      "recall": 94.96,
+      "f1_score": 94.96
+    },
+    {
+      "model_name": "Support Vector Machine (LinearSVC)",
+      "accuracy": 94.22,
+      "precision": 94.17,
+      "recall": 94.96,
+      "f1_score": 94.56
+    },
+    {
+      "model_name": "SGD Classifier",
+      "accuracy": 92.89,
+      "precision": 93.28,
+      "recall": 93.28,
+      "f1_score": 93.28
+    }
+  ],
+  "features_used": [
+    "TF-IDF Unigrams + Bigrams (12,000 max features)",
+    "Embedded IP-based URL Detection",
+    "URL Shortener Resolution & Frequency",
+    "High-Risk Malicious TLD Filtering",
+    "Brand Impersonation & Header Spoofing Analysis",
+    "Free Webmail Discrepancy Flagging",
+    "Urgency & Psychological Trigger Density",
+    "Credential / Financial Harvesting Keywords",
+    "Shouting Text & Punctuation Density Ratios"
+  ]
+}
